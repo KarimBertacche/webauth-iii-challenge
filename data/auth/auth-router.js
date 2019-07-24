@@ -7,7 +7,7 @@ const secret = require('../secret');
 
 router.post('/register', async (req, res) => {
     try {
-        const { username, password } = req.body;
+        let { username, password } = req.body;
 
         if(username && password) {
             password = bcrypt.hashSync(password, 12);
@@ -31,7 +31,7 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
-        const user = await db.getUserBy({ username });
+        const user = await db.findUserBy({ username });
 
         if(user && bcrypt.compareSync(password, user.password)) {
             const token = generateToken(user);
