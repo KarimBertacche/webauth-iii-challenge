@@ -2,6 +2,8 @@ const db = require('../database-config/config');
 
 module.exports = {
     registerUser,
+    getUserById,
+    findUserBy,
 }
 
 function getUserById(id) {
@@ -13,4 +15,8 @@ function registerUser(credentials) {
         const [ userId ] = id 
         return getUserById(userId);
     });
+}
+
+function findUserBy(filter) {
+    return db('users').where(filter).first();
 }
